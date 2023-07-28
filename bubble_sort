@@ -1,20 +1,47 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-void bubbleSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; ++i){
-        bool swapped = false;
-        for (int j = 0; j < n - i - 1; ++j) {
-            if (arr[j] > arr[j + 1]) {
-                std::swap(arr[j], arr[j + 1]);
-                swapped = true;
-            }
-        }
-        if (!swapped) {
-            break;
+class BubbleSort {
+private:
+    int* arr;
+    int size;
+
+public:
+    BubbleSort(int arr[], int n) {
+        size = n;
+        this->arr = new int[size];
+        for (int i = 0; i < size; ++i) {
+            this->arr[i] = arr[i];
         }
     }
-}
+
+    void sort() {
+        for (int i = 0; i < size - 1; ++i) {
+            bool swapped = false;
+                 for (int j = 0; j < size - i - 1; ++j) {
+                if (arr[j] > arr[j + 1]) {
+                    std::swap(arr[j], arr[j + 1]);
+                    swapped = true;
+                }
+               }
+            if (!swapped) {
+                break;
+            }
+        }
+    }
+
+    void display() {
+        std::cout << "Sorted array: ";
+        for (int i = 0; i < size; ++i) {
+            std::cout << arr[i] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    ~BubbleSort() {
+        delete[] arr;
+    }
+};
 
 int main() {
     int n;
@@ -25,11 +52,8 @@ int main() {
     for (int i = 0; i < n; ++i) {
         std::cin >> arr[i];
     }
-    bubbleSort(arr, n);
-    std::cout << "Sorted array: ";
-    for (int i = 0; i < n; ++i) {
-        std::cout << arr[i] << " ";
-    }
-    std::cout << std::endl;
+    BubbleSort sorter(arr, n);
+    sorter.sort();
+    sorter.display();
     return 0;
 }
